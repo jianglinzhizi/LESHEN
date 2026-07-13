@@ -125,6 +125,13 @@ const initialContactForm = {
 }
 
 const contactSubmissionEndpoint = import.meta.env.VITE_ZOHO_LEAD_ENDPOINT || '/api/zoho-lead'
+const languageStorageKey = 'leshen_site_language'
+
+function getInitialLanguage() {
+  if (typeof window === 'undefined') return 'zh'
+
+  return localStorage.getItem(languageStorageKey) === 'en' ? 'en' : 'zh'
+}
 
 const blogCopy = {
   zh: {
@@ -1043,7 +1050,7 @@ function ContactSection({ t, language }) {
             <span>{t.phone}</span>
             <strong>+86 000 0000 0000</strong>
             <span>{t.address}</span>
-            <strong>leshen.com</strong>
+            <strong>leshen.work</strong>
           </div>
         </div>
         <form className="contact-form" onSubmit={submitForm}>
@@ -1145,7 +1152,7 @@ function getArticleIdFromPath(pathname) {
 }
 
 function App() {
-  const [language, setLanguage] = useState('zh')
+  const [language, setLanguage] = useState(getInitialLanguage)
   const [routePath, setRoutePath] = useState(() => window.location.pathname)
   const hasPlayedOpeningRef = useRef(false)
   const t = copy[language]
@@ -1160,7 +1167,7 @@ function App() {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'LESHEN 乐绅',
-      url: 'https://leshen.com',
+      url: 'https://leshen.work',
       address: 'Shanghai, China',
       description: '男士高端定制假发、真人发补发与整体形象设计品牌。',
       sameAs: [],
@@ -1178,6 +1185,10 @@ function App() {
   }, [])
 
   useEffect(() => {
+    localStorage.setItem(languageStorageKey, language)
+  }, [language])
+
+  useEffect(() => {
     if (articleId || !window.location.hash) return
 
     window.requestAnimationFrame(() => {
@@ -1185,6 +1196,23 @@ function App() {
       target?.scrollIntoView({ block: 'start' })
     })
   }, [articleId])
+
+  useLayoutEffect(() => {
+    if (!articleId && !isBlogLibrary && !isFaqLibrary) return
+
+    function scrollToPageTop() {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
+
+    scrollToPageTop()
+    const frameId = window.requestAnimationFrame(scrollToPageTop)
+    const timeoutId = window.setTimeout(scrollToPageTop, 180)
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      window.clearTimeout(timeoutId)
+    }
+  }, [articleId, isBlogLibrary, isFaqLibrary, routePath])
 
   useLayoutEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -1452,19 +1480,16 @@ function App() {
 
     window.history.pushState(null, '', `/blog/${encodeURIComponent(article.id)}`)
     setRoutePath(window.location.pathname)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function navigateToBlogLibrary() {
     window.history.pushState(null, '', '/blog-library')
     setRoutePath(window.location.pathname)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function navigateToFaqLibrary() {
     window.history.pushState(null, '', '/faq')
     setRoutePath(window.location.pathname)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   if (isBlogLibrary) {
