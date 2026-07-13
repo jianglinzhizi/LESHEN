@@ -1225,12 +1225,15 @@ function App() {
     const isStandalonePage = Boolean(articleId || isBlogLibrary || isFaqLibrary)
     const ctx = gsap.context(() => {
       const slowEase = 'expo.out'
+      const isCompactMotion = window.matchMedia('(max-width: 760px)').matches
       const shouldPlayOpening =
         !isStandalonePage &&
         !hasPlayedOpeningRef.current &&
         (!window.location.hash || window.location.hash === '#home')
 
       if (shouldPlayOpening) {
+        const heroVideoElement = document.querySelector('.hero-video')
+
         gsap.set('.opening-curtain', { autoAlpha: 1 })
         gsap.set('.opening-panel', { clipPath: 'inset(0% 0% 0% 0%)' })
         gsap.set('.opening-word span, .opening-word small', {
@@ -1251,16 +1254,19 @@ function App() {
           filter: 'blur(12px)',
           transformOrigin: '50% 100%',
         })
-        gsap.set('.hero-video', {
-          clipPath: 'inset(12% 0% 12% 0%)',
-          scale: 1.22,
-          transformOrigin: '50% 50%',
+        if (heroVideoElement) {
+          gsap.set(heroVideoElement, {
+            clipPath: 'inset(12% 0% 12% 0%)',
+            scale: 1.22,
+            transformOrigin: '50% 50%',
+          })
+        }
+
+        const openingTimeline = gsap.timeline({
+          defaults: { ease: slowEase },
         })
 
-        gsap
-          .timeline({
-            defaults: { ease: slowEase },
-          })
+        openingTimeline
           .to('.opening-word span, .opening-word small', {
             autoAlpha: 1,
             yPercent: 0,
@@ -1285,11 +1291,16 @@ function App() {
               hasPlayedOpeningRef.current = true
             },
           }, '-=0.22')
-          .to('.hero-video', {
+
+        if (heroVideoElement) {
+          openingTimeline.to(heroVideoElement, {
             clipPath: 'inset(0% 0% 0% 0%)',
             scale: 1.04,
             duration: 1.55,
           }, '-=1.15')
+        }
+
+        openingTimeline
           .to('.motion-title-unit', {
             autoAlpha: 1,
             yPercent: 0,
@@ -1333,17 +1344,19 @@ function App() {
       }
 
       if (!isStandalonePage) {
-        gsap.to('.hero-video', {
-          yPercent: 16,
-          scale: 1.08,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.hero-section',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1.4,
-          },
-        })
+        if (!isCompactMotion) {
+          gsap.to('.hero-video', {
+            yPercent: 16,
+            scale: 1.08,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.hero-section',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1.4,
+            },
+          })
+        }
 
         gsap.utils.toArray('.section, .contact-section').forEach((section) => {
           const heading = section.querySelectorAll('.section-heading h2, .contact-grid h2')
@@ -1375,18 +1388,18 @@ function App() {
           if (heading.length) {
             tl.fromTo(heading, {
               autoAlpha: 0,
-              y: 118,
-              scaleY: 0.68,
-              scaleX: 1.08,
-              filter: 'blur(10px)',
+              y: isCompactMotion ? 54 : 118,
+              scaleY: isCompactMotion ? 0.92 : 0.68,
+              scaleX: isCompactMotion ? 1 : 1.08,
+              filter: isCompactMotion ? 'none' : 'blur(10px)',
               transformOrigin: '50% 100%',
             }, {
               autoAlpha: 1,
               y: 0,
               scaleY: 1,
               scaleX: 1,
-              filter: 'blur(0px)',
-              duration: 1.05,
+              filter: isCompactMotion ? 'none' : 'blur(0px)',
+              duration: isCompactMotion ? 0.72 : 1.05,
             })
           }
 
@@ -1404,18 +1417,18 @@ function App() {
           if (cards.length) {
             tl.fromTo(cards, {
               autoAlpha: 0,
-              y: 96,
-              scale: 0.94,
-              clipPath: 'inset(18% 0% 0% 0%)',
+              y: isCompactMotion ? 42 : 96,
+              scale: isCompactMotion ? 0.985 : 0.94,
+              clipPath: isCompactMotion ? 'none' : 'inset(18% 0% 0% 0%)',
               transformOrigin: '50% 100%',
             }, {
               autoAlpha: 1,
               y: 0,
               scale: 1,
-              clipPath: 'inset(0% 0% 0% 0%)',
-              duration: 1.0,
+              clipPath: isCompactMotion ? 'none' : 'inset(0% 0% 0% 0%)',
+              duration: isCompactMotion ? 0.66 : 1.0,
               stagger: {
-                each: 0.095,
+                each: isCompactMotion ? 0.045 : 0.095,
                 from: 'start',
               },
             }, '-=0.38')
@@ -1436,32 +1449,32 @@ function App() {
           })
           .fromTo('.article-page-card, .blog-library-hero, .faq-library-hero', {
             autoAlpha: 0,
-            y: 96,
-            scaleY: 0.78,
-            filter: 'blur(10px)',
+            y: isCompactMotion ? 48 : 96,
+            scaleY: isCompactMotion ? 0.94 : 0.78,
+            filter: isCompactMotion ? 'none' : 'blur(10px)',
             transformOrigin: '50% 100%',
           }, {
             autoAlpha: 1,
             y: 0,
             scaleY: 1,
-            filter: 'blur(0px)',
-            duration: 1.1,
+            filter: isCompactMotion ? 'none' : 'blur(0px)',
+            duration: isCompactMotion ? 0.76 : 1.1,
           }, '-=0.42')
           .fromTo(
             '.article-page-content p, .article-tags span, .blog-controls, .blog-results-head, .blog-card, .faq-item, .related-card',
             {
               autoAlpha: 0,
-              y: 64,
-              scale: 0.96,
-              clipPath: 'inset(18% 0% 0% 0%)',
+              y: isCompactMotion ? 36 : 64,
+              scale: isCompactMotion ? 0.985 : 0.96,
+              clipPath: isCompactMotion ? 'none' : 'inset(18% 0% 0% 0%)',
             },
             {
               autoAlpha: 1,
               y: 0,
               scale: 1,
-              clipPath: 'inset(0% 0% 0% 0%)',
-              duration: 0.9,
-              stagger: 0.08,
+              clipPath: isCompactMotion ? 'none' : 'inset(0% 0% 0% 0%)',
+              duration: isCompactMotion ? 0.62 : 0.9,
+              stagger: isCompactMotion ? 0.04 : 0.08,
             },
             '-=0.48',
           )
