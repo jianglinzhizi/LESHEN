@@ -1,35 +1,42 @@
-# LESHEN 瀹樼綉琛ㄥ崟 Zoho CRM 瀵规帴璇存槑
+# LESHEN 官网表单 Zoho CRM 对接说明
 
-褰撳墠瀹樼綉琛ㄥ崟宸茬粡鎸?Zoho CRM Leads 缁撴瀯鏀归€狅細
+当前官网表单已经按 Zoho CRM Leads 结构改造：
 
-- 鍓嶇鎻愪氦鍒?`/api/zoho-lead`
-- 鍚庣鎺ュ彛浣跨敤 Zoho OAuth refresh token 鎹㈠彇 access token
-- 鍚庣鎺ュ彛鎶婄嚎绱㈠啓鍏?Zoho CRM `Leads`
-- Zoho 瀵嗛挜鍙繚瀛樺湪鏈嶅姟绔幆澧冨彉閲忥紝涓嶄細鏆撮湶鍒版祻瑙堝櫒
+- 前端提交到 `/api/zoho-lead`
+- 后端接口使用 Zoho OAuth refresh token 换取 access token
+- 后端接口把线索写入 Zoho CRM `Leads`
+- Zoho 密钥只保存在服务端环境变量，不会暴露到浏览器
 
-## 1. 瀹樼綉琛ㄥ崟瀛楁
+## 1. 官网表单字段
 
-瀹樼綉琛ㄥ崟瀛楁锛?
-- 鑱旂郴浜?- 鑱旂郴鐢佃瘽
-- 寰俊
-- 鎵€鍦ㄥ煄甯?- 棰勭畻鍖洪棿
-- 闇€姹傝鏄?
-## 2. Zoho Leads 瀛楁鏄犲皠
+官网表单字段：
 
-鍙戦€佸埌 Zoho CRM 鐨?`Leads` 瀛楁锛?
-| 瀹樼綉瀛楁 | Zoho 瀛楁 API Name | 璇存槑 |
+- 联系人
+- 联系电话
+- 微信
+- 所在城市
+- 预算区间
+- 需求说明
+
+## 2. Zoho Leads 字段映射
+
+发送到 Zoho CRM 的 `Leads` 字段：
+
+| 官网字段 | Zoho 字段 API Name | 说明 |
 | --- | --- | --- |
-| 鑱旂郴浜?| `Last_Name` | Zoho Leads 绯荤粺蹇呭～瀛楁 |
-| 鑱旂郴鐢佃瘽 | `Phone` | 鏍囧噯鐢佃瘽瀛楁 |
-| 鎵€鍦ㄥ煄甯?| `City` | 鏍囧噯鍩庡競瀛楁 |
-| 鍥哄畾鏉ユ簮 | `Lead_Source` | 鍥哄畾涓?`Website` |
-| 鍥哄畾鍏徃 | `Company` | 鍥哄畾涓?`涓汉瀹㈡埛` |
-| 寰俊銆侀绠楀尯闂淬€侀渶姹傝鏄?| `Description` | 鍚堝苟淇濆瓨锛岄伩鍏嶅繀椤诲厛鍒涘缓 Zoho 鑷畾涔夊瓧娈?|
+| 联系人 | `Last_Name` | Zoho Leads 系统必填字段 |
+| 联系电话 | `Phone` | 标准电话字段 |
+| 所在城市 | `City` | 标准城市字段 |
+| 固定来源 | `Lead_Source` | 固定为 `Website` |
+| 固定公司 | `Company` | 固定为 `个人客户` |
+| 微信、预算区间、需求说明 | `Description` | 合并保存，避免必须先创建 Zoho 自定义字段 |
 
-濡傛灉鍚庣画鍦?Zoho 閲屽垱寤轰簡鑷畾涔夊瓧娈碉紝渚嬪 `Wechat__c`銆乣Budget_Range__c`锛屽彲浠ュ湪 `server/zoho-crm.mjs` 閲屾妸 `rawFields.wechat` 鍜?`rawFields.budget` 鍗曠嫭鏄犲皠杩囧幓銆?
-## 3. 鐜鍙橀噺
+如果后续在 Zoho 里创建了自定义字段，例如 `Wechat__c`、`Budget_Range__c`，可以在 `server/zoho-crm.mjs` 里把 `rawFields.wechat` 和 `rawFields.budget` 单独映射过去。
 
-澶嶅埗 `.env.example` 涓?`.env.local`锛屽～鍐?Zoho OAuth 淇℃伅锛?
+## 3. 环境变量
+
+复制 `.env.example` 为 `.env.local`，填写 Zoho OAuth 信息：
+
 ```env
 VITE_ZOHO_LEAD_ENDPOINT=/api/zoho-lead
 ZOHO_ACCOUNTS_DOMAIN=https://accounts.zoho.com.cn
@@ -39,21 +46,22 @@ ZOHO_CLIENT_SECRET=
 ZOHO_REFRESH_TOKEN=
 ```
 
-浣犵殑 Zoho 鍚庡彴鍦板潃鏄細
+你的 Zoho 后台地址是：
 
 ```text
 https://crm.zoho.com.cn/crm/org46779451/tab/Home/begin
 ```
 
-鎵€浠ヤ腑鍥藉尯璐﹀彿榛樿浣跨敤锛?
+所以中国区账号默认使用：
+
 ```text
 ZOHO_ACCOUNTS_DOMAIN=https://accounts.zoho.com.cn
 ZOHO_API_DOMAIN=https://www.zohoapis.com.cn
 ```
 
-## 4. 褰撳墠鎻愪氦 JSON
+## 4. 当前提交 JSON
 
-鍓嶇鎻愪氦缁?`/api/zoho-lead` 鐨勭粨鏋勶細
+前端提交给 `/api/zoho-lead` 的结构：
 
 ```json
 {
@@ -61,29 +69,30 @@ ZOHO_API_DOMAIN=https://www.zohoapis.com.cn
   "submittedAt": "2026-07-11T00:00:00.000Z",
   "module": "Leads",
   "zohoLead": {
-    "Last_Name": "寮犲厛鐢?,
+    "Last_Name": "张先生",
     "Phone": "13800000000",
-    "City": "涓婃捣",
+    "City": "上海",
     "Lead_Source": "Website",
-    "Company": "涓汉瀹㈡埛",
-    "Description": "寰俊锛歭eshen-demo\n棰勭畻鍖洪棿锛?0000-20000\n鎵€鍦ㄥ煄甯傦細涓婃捣\n\n闇€姹傝鏄庯細\n甯屾湜鏀瑰杽鍙戦檯绾?
+    "Company": "个人客户",
+    "Description": "微信：leshen-demo\n预算区间：10000-20000\n所在城市：上海\n\n需求说明：\n希望改善发际线"
   },
   "rawFields": {
-    "contactName": "寮犲厛鐢?,
+    "contactName": "张先生",
     "phone": "13800000000",
     "wechat": "leshen-demo",
-    "city": "涓婃捣",
+    "city": "上海",
     "budget": "10000-20000",
-    "requirement": "甯屾湜鏀瑰杽鍙戦檯绾?
+    "requirement": "希望改善发际线"
   }
 }
 ```
 
-## 5. 鏈湴棰勮琛屼负
+## 5. 本地预览行为
 
-濡傛灉娌℃湁閰嶇疆 `ZOHO_CLIENT_ID`銆乣ZOHO_CLIENT_SECRET`銆乣ZOHO_REFRESH_TOKEN`锛岃〃鍗曚笉浼氫涪鏁版嵁锛?
-- 浼氬厛淇濆瓨鍒版祻瑙堝櫒 `localStorage`
-- key 鏄?`leshen_contact_inquiries`
-- 椤甸潰浼氭彁绀哄綋鍓嶆槸鏈湴棰勮璁板綍
+如果没有配置 `ZOHO_CLIENT_ID`、`ZOHO_CLIENT_SECRET`、`ZOHO_REFRESH_TOKEN`，表单不会丢数据：
 
-閰嶇疆濂?Zoho OAuth 鍚庯紝鎻愪氦浼氳繘鍏?Zoho CRM Leads銆?
+- 会先保存到浏览器 `localStorage`
+- key 是 `leshen_contact_inquiries`
+- 页面会提示当前是本地预览记录
+
+配置好 Zoho OAuth 后，提交会进入 Zoho CRM Leads。

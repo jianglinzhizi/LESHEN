@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: leshen-brand-site
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 24.14.1
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

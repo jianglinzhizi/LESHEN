@@ -30,18 +30,18 @@ export function normalizeZohoLeadPayload(body) {
   const requirement = safeString(rawFields.requirement || incomingLead.Description)
 
   if (!contactName || !phone) {
-    const error = new Error('鑱旂郴浜哄拰鑱旂郴鐢佃瘽鏄繀濉」')
+    const error = new Error('联系人和联系电话是必填项')
     error.statusCode = 400
     error.code = 'INVALID_LEAD_PAYLOAD'
     throw error
   }
 
   const description = [
-    wechat && `寰俊锛?{wechat}`,
-    budget && `棰勭畻鍖洪棿锛?{budget}`,
-    city && `鎵€鍦ㄥ煄甯傦細${city}`,
+    wechat && `微信：${wechat}`,
+    budget && `预算区间：${budget}`,
+    city && `所在城市：${city}`,
     requirement && '',
-    requirement && '闇€姹傝鏄庯細',
+    requirement && '需求说明：',
     requirement,
   ]
     .filter(Boolean)
@@ -52,8 +52,8 @@ export function normalizeZohoLeadPayload(body) {
     Phone: phone,
     City: city,
     Lead_Source: incomingLead.Lead_Source || 'Website',
-    Company: incomingLead.Company || '涓汉瀹㈡埛',
-    Description: description || incomingLead.Description || '瀹樼綉琛ㄥ崟鍜ㄨ',
+    Company: incomingLead.Company || '个人客户',
+    Description: description || incomingLead.Description || '官网表单咨询',
   }
 }
 
