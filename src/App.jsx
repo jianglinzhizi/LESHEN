@@ -1048,9 +1048,9 @@ function ContactSection({ t, language }) {
           <p>{t.finalBody}</p>
           <div className="contact-details">
             <span>{t.phone}</span>
-            <strong>+86 000 0000 0000</strong>
+            <strong>+86 19117080080</strong>
             <span>{t.address}</span>
-            <strong>leshen.work</strong>
+            <strong>leshen.store</strong>
           </div>
         </div>
         <form className="contact-form" onSubmit={submitForm}>
@@ -1167,7 +1167,7 @@ function App() {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'LESHEN 乐绅',
-      url: 'https://leshen.work',
+      url: 'https://leshen.store',
       address: 'Shanghai, China',
       description: '男士高端定制假发、真人发补发与整体形象设计品牌。',
       sameAs: [],
