@@ -125,6 +125,12 @@ const initialContactForm = {
 }
 
 const contactSubmissionEndpoint = import.meta.env.VITE_ZOHO_LEAD_ENDPOINT || '/api/zoho-lead'
+const zohoWebForm = {
+  action: 'https://crm.zoho.com.cn/crm/WebToLeadForm',
+  xnQsjsdp: 'b8daa6cf1edeb897fcc87db11854308a4fb41b629ce2c7c97e5de4b6f47a7644',
+  xmIwtLD: '9449188e6e29b41fb76e402ec255a8f7acd3f959386494b87b96c72ccda97d44adbe9a95133f69266f7afc4907185dc7',
+  actionType: 'TGVhZHM=',
+}
 const languageStorageKey = 'leshen_site_language'
 
 function getInitialLanguage() {
@@ -279,8 +285,51 @@ function createZohoLeadPayload(form) {
       city: form.city,
       budget: form.budget,
       requirement: form.message,
+      email: '',
     },
   }
+}
+
+function submitZohoWebForm(inquiry) {
+  const frameName = `zoho-webform-${Date.now()}`
+  const iframe = document.createElement('iframe')
+  iframe.name = frameName
+  iframe.title = 'Zoho CRM submission'
+  iframe.hidden = true
+  document.body.appendChild(iframe)
+
+  const nativeForm = document.createElement('form')
+  nativeForm.action = zohoWebForm.action
+  nativeForm.method = 'POST'
+  nativeForm.target = frameName
+  nativeForm.acceptCharset = 'UTF-8'
+
+  const fields = {
+    ...zohoWebForm,
+    returnURL: 'null',
+    Company: inquiry.zohoLead.Company,
+    'Last Name': inquiry.zohoLead.Last_Name,
+    Mobile: inquiry.zohoLead.Phone,
+    Email: inquiry.rawFields.email || '',
+    'Address - City': inquiry.zohoLead.City,
+    Description: inquiry.zohoLead.Description,
+  }
+
+  Object.entries(fields).forEach(([name, value]) => {
+    if (name === 'action') return
+    const input = document.createElement('input')
+    input.type = 'hidden'
+    input.name = name
+    input.value = value || ''
+    nativeForm.appendChild(input)
+  })
+
+  document.body.appendChild(nativeForm)
+  nativeForm.submit()
+  window.setTimeout(() => {
+    nativeForm.remove()
+    iframe.remove()
+  }, 10000)
 }
 
 const dimensionTranslations = {
@@ -1004,9 +1053,14 @@ function ContactSection({ t, language }) {
 
     localStorage.setItem('leshen_contact_inquiries', JSON.stringify([inquiry, ...existing]))
 
-    if (!contactSubmissionEndpoint) {
+    const submitDirectlyToZoho = () => {
+      submitZohoWebForm(inquiry)
       setForm(initialContactForm)
-      setSubmitStatus('local')
+      setSubmitStatus('success')
+    }
+
+    if (!contactSubmissionEndpoint) {
+      submitDirectlyToZoho()
       return
     }
 
@@ -1022,8 +1076,12 @@ function ContactSection({ t, language }) {
       const data = await response.json().catch(() => ({}))
 
       if (response.status === 501 && data.code === 'ZOHO_CONFIG_MISSING') {
-        setForm(initialContactForm)
-        setSubmitStatus('local')
+        submitDirectlyToZoho()
+        return
+      }
+
+      if (response.status === 404) {
+        submitDirectlyToZoho()
         return
       }
 
