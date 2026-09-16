@@ -124,7 +124,7 @@ const initialContactForm = {
   message: '',
 }
 
-const contactSubmissionEndpoint = import.meta.env.VITE_ZOHO_LEAD_ENDPOINT || '/api/zoho-lead'
+const contactSubmissionEndpoint = import.meta.env.VITE_ZOHO_LEAD_ENDPOINT || ''
 const zohoWebForm = {
   action: 'https://crm.zoho.com.cn/crm/WebToLeadForm',
   xnQsjsdp: 'b8daa6cf1edeb897fcc87db11854308a4fb41b629ce2c7c97e5de4b6f47a7644',
@@ -290,46 +290,36 @@ function createZohoLeadPayload(form) {
   }
 }
 
-function submitZohoWebForm(inquiry) {
-  const frameName = `zoho-webform-${Date.now()}`
-  const iframe = document.createElement('iframe')
-  iframe.name = frameName
-  iframe.title = 'Zoho CRM submission'
-  iframe.hidden = true
-  document.body.appendChild(iframe)
-
-  const nativeForm = document.createElement('form')
-  nativeForm.action = zohoWebForm.action
-  nativeForm.method = 'POST'
-  nativeForm.target = frameName
-  nativeForm.acceptCharset = 'UTF-8'
-
+async function submitZohoWebForm(inquiry) {
   const fields = {
-    ...zohoWebForm,
+    xnQsjsdp: zohoWebForm.xnQsjsdp,
+    zc_gad: '',
+    xmIwtLD: zohoWebForm.xmIwtLD,
+    actionType: zohoWebForm.actionType,
     returnURL: 'null',
+    ldeskuid: '',
+    LDTuvid: '',
     Company: inquiry.zohoLead.Company,
     'Last Name': inquiry.zohoLead.Last_Name,
     Mobile: inquiry.zohoLead.Phone,
     Email: inquiry.rawFields.email || '',
     'Address - City': inquiry.zohoLead.City,
     Description: inquiry.zohoLead.Description,
+    aG9uZXlwb3Q: '',
   }
 
-  Object.entries(fields).forEach(([name, value]) => {
-    if (name === 'action') return
-    const input = document.createElement('input')
-    input.type = 'hidden'
-    input.name = name
-    input.value = value || ''
-    nativeForm.appendChild(input)
+  const response = await fetch(zohoWebForm.action, {
+    method: 'POST',
+    body: new URLSearchParams(fields),
   })
+  const html = await response.text()
+  const confirmation = new DOMParser()
+    .parseFromString(html, 'text/html')
+    .getElementById('wf_thankyoumessage')
 
-  document.body.appendChild(nativeForm)
-  nativeForm.submit()
-  window.setTimeout(() => {
-    nativeForm.remove()
-    iframe.remove()
-  }, 10000)
+  if (!response.ok || !confirmation) {
+    throw new Error(`Zoho Web form did not confirm the submission (${response.status})`)
+  }
 }
 
 const dimensionTranslations = {
@@ -1011,8 +1001,6 @@ function ContactSection({ t, language }) {
           submit: '提交咨询',
           submitting: '正在提交...',
           success: '已提交咨询信息，我们会尽快与你确认方案。',
-          localOnly:
-            '已保存为本地预览记录。配置 VITE_ZOHO_LEAD_ENDPOINT 后，会自动提交到 Zoho CRM 对接端点。',
           error: '提交暂时失败，信息已保存在浏览器本地，请稍后重试或直接联系乐绅。',
         }
       : {
@@ -1032,8 +1020,6 @@ function ContactSection({ t, language }) {
           submitting: 'Submitting...',
           success:
             'Inquiry submitted. We will confirm the plan with you soon.',
-          localOnly:
-            'Saved as a local preview record. Configure VITE_ZOHO_LEAD_ENDPOINT to submit to the Zoho CRM endpoint.',
           error:
             'Submission failed for now. The information is saved locally in this browser.',
         }
@@ -1053,18 +1039,18 @@ function ContactSection({ t, language }) {
 
     localStorage.setItem('leshen_contact_inquiries', JSON.stringify([inquiry, ...existing]))
 
-    const submitDirectlyToZoho = () => {
-      submitZohoWebForm(inquiry)
+    const submitDirectlyToZoho = async () => {
+      await submitZohoWebForm(inquiry)
       setForm(initialContactForm)
       setSubmitStatus('success')
     }
 
-    if (!contactSubmissionEndpoint) {
-      submitDirectlyToZoho()
-      return
-    }
-
     try {
+      if (!contactSubmissionEndpoint) {
+        await submitDirectlyToZoho()
+        return
+      }
+
       const response = await fetch(contactSubmissionEndpoint, {
         method: 'POST',
         headers: {
@@ -1076,16 +1062,16 @@ function ContactSection({ t, language }) {
       const data = await response.json().catch(() => ({}))
 
       if (response.status === 501 && data.code === 'ZOHO_CONFIG_MISSING') {
-        submitDirectlyToZoho()
+        await submitDirectlyToZoho()
         return
       }
 
       if (response.status === 404) {
-        submitDirectlyToZoho()
+        await submitDirectlyToZoho()
         return
       }
 
-      if (!response.ok || data.ok === false) {
+      if (!response.ok || data.ok !== true) {
         throw new Error(data.message || `CRM endpoint returned ${response.status}`)
       }
 
@@ -1193,7 +1179,6 @@ function ContactSection({ t, language }) {
             {submitStatus === 'submitting' ? labels.submitting : labels.submit}
           </button>
           {submitStatus === 'success' && <p className="form-success">{labels.success}</p>}
-          {submitStatus === 'local' && <p className="form-success">{labels.localOnly}</p>}
           {submitStatus === 'error' && <p className="form-error">{labels.error}</p>}
         </form>
       </div>
