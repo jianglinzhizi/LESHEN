@@ -132,6 +132,188 @@ const zohoWebForm = {
   actionType: 'TGVhZHM=',
 }
 const languageStorageKey = 'leshen_site_language'
+const privacyPolicyVersion = '2026-09-20'
+const personalInformationHandler = '都是朋友（上海）假发造型设计有限责任公司'
+const legalDocumentOrder = ['privacy', 'collection', 'cookies', 'consultation']
+
+const legalDocuments = {
+  zh: {
+    privacy: {
+      title: '《隐私政策》',
+      summary:
+        '本政策说明乐绅在官网咨询与网站运营过程中如何收集、使用、存储和保护个人信息。',
+      sections: [
+        {
+          heading: '1. 我们是谁',
+          paragraphs: [
+            `个人信息处理者：${personalInformationHandler}（品牌：LESHEN 乐绅）。`,
+            '联系方式：+86 19117080080（电话 / 微信）。如您对个人信息处理有疑问，或希望行使查阅、复制、更正、删除或撤回同意等权利，可通过上述方式联系我们。',
+          ],
+        },
+        {
+          heading: '2. 我们处理的信息',
+          items: [
+            '咨询表单信息：联系人、联系电话、微信、所在城市、预算区间和需求说明。',
+            '您主动提供的敏感个人信息：需求说明中可能包含脱发情况、健康状况或相关图像。请勿填写与咨询无关的身份证号、金融账户等信息。',
+            '网站访问与统计信息：IP 地址、设备与浏览器类型、访问时间、页面浏览与交互事件等。',
+          ],
+        },
+        {
+          heading: '3. 处理目的和方式',
+          items: [
+            '与您联系，了解需求，评估定制方案，安排到店咨询与后续服务。',
+            '保障网站运行、排查故障、统计页面访问表现并改善用户体验。',
+            '咨询表单信息会传送至 Zoho CRM 用于客户线索管理，并会在当前浏览器的本地存储中保留副本，以便在提交失败时辅助恢复。',
+          ],
+        },
+        {
+          heading: '4. 对外提供与委托处理',
+          paragraphs: [
+            '我们不售卖您的个人信息。为完成客户咨询和网站统计，我们会使用 Zoho CRM、Google Analytics 和百度统计等服务。相关服务提供方会在提供服务所必需的范围内处理信息，并受其自身隐私规则约束。',
+          ],
+        },
+        {
+          heading: '5. 保存期限与安全',
+          paragraphs: [
+            '我们仅在完成咨询、提供服务、处理争议或履行法定义务所需的最短期限内保存个人信息；浏览器本地副本会保留至您清除本网站的浏览数据。期限届满后，我们将删除或匿名化处理，法律法规另有规定的除外。',
+            '我们会采取与信息规模和风险相匹配的访问控制、传输保护和内部管理措施，但任何网络传输都无法承诺绝对安全。',
+          ],
+        },
+        {
+          heading: '6. 您的权利与未成年人保护',
+          paragraphs: [
+            '您可要求查阅、复制、更正、补充、删除或限制处理个人信息，也可撤回同意。撤回不影响撤回前已开展的合法处理活动。我们的服务主要面向成年人；不满十四周岁的未成年人请由监护人联系我们并提供同意。',
+          ],
+        },
+        {
+          heading: '7. 政策更新',
+          paragraphs: [
+            `生效及最近更新日期：${privacyPolicyVersion}。如处理目的、方式或信息类型发生重要变更，我们将更新本政策，并在依法需要时重新征得同意。`,
+          ],
+        },
+      ],
+    },
+    collection: {
+      title: '《个人信息收集说明》',
+      summary: '以下说明帮助您快速了解咨询表单和网站访问所涉及的信息。',
+      sections: [
+        {
+          heading: '咨询表单',
+          items: [
+            '联系人、电话、微信：用于识别咨询人并回复需求。',
+            '所在城市：用于判断到店和服务安排。',
+            '预算区间：用于筛选适合的方案范围。',
+            '需求说明：用于了解发际线、发量、风格、到店时间等咨询需求。',
+            '脱发或健康相关信息可能属于敏感个人信息；我们仅在您单独同意后，用于评估咨询方案。',
+          ],
+        },
+        {
+          heading: '自动收集信息',
+          items: [
+            '统计技术可收集 IP 地址、大致地区、设备、操作系统、浏览器、来源页面、访问时间和页面交互事件。',
+            '浏览器本地存储用于保存语言偏好和咨询提交副本，数据留在您当前使用的浏览器中，直至您清除网站数据。',
+          ],
+        },
+        {
+          heading: '处理与联系',
+          paragraphs: [
+            '咨询记录提交至 Zoho CRM，由乐绅顾问用于跟进服务。我们不会因您拒绝提供非必要信息而拒绝与信息无关的服务。权利请求请联系 +86 19117080080。',
+          ],
+        },
+      ],
+    },
+    cookies: {
+      title: 'Cookie / 统计技术说明',
+      summary: '本网站使用浏览器存储与第三方统计技术保持基本功能、了解网站使用情况并改进内容。',
+      sections: [
+        {
+          heading: '我们使用的技术',
+          items: [
+            '必要的浏览器本地存储：记住中英文语言偏好，并在咨询提交失败时保存输入副本。',
+            'Google Analytics（识别码 G-EMQF619KR9）：统计页面访问、来源、设备类型与交互事件。',
+            '百度统计（识别码 e0640b03f7c51c45399f306de123e5d7）：统计页面访问与使用情况。',
+          ],
+        },
+        {
+          heading: '可能处理的数据',
+          paragraphs: [
+            '包括 IP 地址、Cookie 或类似标识符、设备与浏览器信息、来源地址、访问时间、页面浏览和点击事件。我们不使用这些统计数据对您作出具有重大影响的自动化决定。',
+          ],
+        },
+        {
+          heading: '如何管理',
+          paragraphs: [
+            '您可在浏览器中删除或限制 Cookie 和网站数据，也可使用浏览器的“防止跨站跟踪”或类似功能。屏蔽统计技术不影响浏览网站的核心内容，但可能使语言偏好无法持久保存。',
+          ],
+        },
+      ],
+    },
+    consultation: {
+      title: '《咨询表单个人信息同意》',
+      summary: '请在提交表单前阅读。勾选同意不影响您之后撤回同意或行使其他个人信息权利。',
+      sections: [
+        {
+          heading: '一般个人信息同意',
+          paragraphs: [
+            `我同意 ${personalInformationHandler} 为联系我、了解需求、评估定制方案、安排咨询及后续服务，处理我填写的联系人、电话、微信、城市、预算和需求说明，并将记录提交至 Zoho CRM 进行线索管理。`,
+          ],
+        },
+        {
+          heading: '敏感个人信息单独同意',
+          paragraphs: [
+            '如我在需求说明中主动填写脱发、健康状况或其他健康相关信息，我知悉该类信息一旦泄露或被非法使用，可能对人身、财产或人格尊严造成影响；我单独同意乐绅仅为评估咨询方案而处理这些信息。',
+          ],
+        },
+        {
+          heading: '撤回与联系',
+          paragraphs: [
+            '我可通过 +86 19117080080 撤回同意，或申请查阅、更正、删除信息。撤回同意不影响撤回前基于同意已进行的合法处理。',
+          ],
+        },
+      ],
+    },
+  },
+}
+
+legalDocuments.en = {
+  privacy: {
+    title: 'Privacy Policy',
+    summary: 'This policy explains how LESHEN handles personal information through this website and its consultation service.',
+    sections: [
+      { heading: 'Who handles your information', paragraphs: [`Controller: ${personalInformationHandler} (LESHEN). Contact: +86 19117080080 by phone or WeChat.`] },
+      { heading: 'Information and purposes', items: ['Consultation details: name, phone number, WeChat, city, budget and needs, used to respond and prepare a service plan.', 'Hair-loss or health information you voluntarily provide may be sensitive personal information and is processed only with separate consent.', 'Visit data such as IP address, device, browser, visit time and page interactions is used to operate and improve the website.'] },
+      { heading: 'Storage and service providers', paragraphs: ['Consultation records are sent to Zoho CRM and a recovery copy may be kept in this browser. Google Analytics and Baidu Analytics support website statistics. We do not sell personal information. Information is kept only for the shortest period needed for consultation, service, disputes or legal obligations, then deleted or anonymized unless law requires otherwise.'] },
+      { heading: 'Your rights', paragraphs: ['You may request access, copying, correction, deletion, restriction or withdrawal of consent by contacting +86 19117080080. Withdrawal does not affect lawful processing completed before withdrawal. The service is intended primarily for adults; children under 14 should ask a guardian to contact us.'] },
+      { heading: 'Updates', paragraphs: [`Effective and last updated: ${privacyPolicyVersion}. Material changes will be announced here and renewed consent will be obtained where required.`] },
+    ],
+  },
+  collection: {
+    title: 'Personal Information Collection Notice',
+    summary: 'A concise explanation of the information involved when you browse the site or submit a consultation.',
+    sections: [
+      { heading: 'Consultation form', items: ['Name, phone and WeChat: identify and reply to you.', 'City: plan an in-person consultation and service availability.', 'Budget: identify a suitable service range.', 'Needs: understand hairline, density, style and preferred visit time.', 'Voluntary hair-loss or health information is used only to assess a consultation plan with separate consent.'] },
+      { heading: 'Automatic collection', items: ['Analytics may collect IP address, general region, device, operating system, browser, referring page, visit time and interaction events.', 'Local storage remembers language preference and keeps a consultation recovery copy until you clear this site’s browser data.'] },
+      { heading: 'Contact', paragraphs: ['Consultation records are sent to Zoho CRM for follow-up. Contact +86 19117080080 to exercise your information rights.'] },
+    ],
+  },
+  cookies: {
+    title: 'Cookie / Analytics Notice',
+    summary: 'This site uses browser storage and third-party analytics to provide basic functions and understand site usage.',
+    sections: [
+      { heading: 'Technologies', items: ['Local storage remembers language preference and a consultation recovery copy.', 'Google Analytics (G-EMQF619KR9) measures visits, sources, devices and interaction events.', 'Baidu Analytics (e0640b03f7c51c45399f306de123e5d7) measures page visits and usage.'] },
+      { heading: 'Data and controls', paragraphs: ['These technologies may process IP address, cookie or similar identifiers, device and browser data, referrer, visit time and page events. We do not use analytics to make automated decisions with significant effects. You can delete or restrict cookies and site data in your browser; blocking analytics does not prevent access to the site’s core content.'] },
+    ],
+  },
+  consultation: {
+    title: 'Consultation Form Personal Information Consent',
+    summary: 'Please read before submitting. You may later withdraw consent or exercise other personal information rights.',
+    sections: [
+      { heading: 'General consent', paragraphs: [`I consent to ${personalInformationHandler} processing the name, phone, WeChat, city, budget and needs I enter, and sending the record to Zoho CRM, to contact me, assess a custom plan and arrange consultation and follow-up service.`] },
+      { heading: 'Separate consent for sensitive information', paragraphs: ['If I voluntarily provide hair-loss, health or other health-related information, I understand that misuse or disclosure may affect my personal or property security or dignity, and I separately consent to its use only for assessing my consultation plan.'] },
+      { heading: 'Withdrawal and contact', paragraphs: ['I may contact +86 19117080080 to withdraw consent or request access, correction or deletion. Withdrawal does not affect lawful processing before withdrawal.'] },
+    ],
+  },
+}
 
 function getInitialLanguage() {
   if (typeof window === 'undefined') return 'zh'
@@ -981,9 +1163,133 @@ function ArticlePage({ article, language, navigateToArticle }) {
   )
 }
 
-function ContactSection({ t, language }) {
+function LegalModal({ documentId, language, onClose }) {
+  const closeButtonRef = useRef(null)
+  const legalDocument = documentId ? legalDocuments[language][documentId] : null
+
+  useEffect(() => {
+    if (!legalDocument) return undefined
+
+    const previousOverflow = document.body.style.overflow
+
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') onClose()
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    closeButtonRef.current?.focus()
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [legalDocument, onClose])
+
+  if (!legalDocument) return null
+
+  return (
+    <div
+      className="legal-modal-backdrop"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose()
+      }}
+    >
+      <section
+        className="legal-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="legal-modal-title"
+      >
+        <header className="legal-modal-header">
+          <div>
+            <span>LESHEN · LEGAL</span>
+            <h2 id="legal-modal-title">{legalDocument.title}</h2>
+          </div>
+          <button
+            className="legal-modal-close"
+            type="button"
+            onClick={onClose}
+            ref={closeButtonRef}
+            aria-label={language === 'zh' ? '关闭说明' : 'Close notice'}
+          >
+            ×
+          </button>
+        </header>
+        <div className="legal-modal-body">
+          <p className="legal-summary">{legalDocument.summary}</p>
+          {legalDocument.sections.map((section) => (
+            <section className="legal-section" key={section.heading}>
+              <h3>{section.heading}</h3>
+              {section.paragraphs?.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              {section.items ? (
+                <ul>
+                  {section.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
+
+function LegalFooter({ language, onOpen }) {
+  const documents = legalDocuments[language]
+
+  return (
+    <footer className="site-footer">
+      <div className="container footer-inner">
+        <div className="footer-brand">
+          <BrandMark />
+          <p>
+            {language === 'zh'
+              ? `${personalInformationHandler} · 上海`
+              : `${personalInformationHandler} · Shanghai`}
+          </p>
+        </div>
+        <nav className="legal-links" aria-label={language === 'zh' ? '法律与隐私' : 'Legal and privacy'}>
+          {legalDocumentOrder.map((documentId) => (
+            <button type="button" key={documentId} onClick={() => onOpen(documentId)}>
+              {documents[documentId].title}
+            </button>
+          ))}
+        </nav>
+        <p className="footer-meta">
+          © {new Date().getFullYear()} LESHEN. {language === 'zh' ? '保留所有权利。' : 'All rights reserved.'}
+        </p>
+      </div>
+    </footer>
+  )
+}
+
+function LegalLayer({ language, activeDocument, onOpen, onClose }) {
+  return (
+    <>
+      <LegalFooter language={language} onOpen={onOpen} />
+      <LegalModal documentId={activeDocument} language={language} onClose={onClose} />
+    </>
+  )
+}
+
+function LegalLinkButton({ children, documentId, onOpen }) {
+  return (
+    <button className="inline-legal-link" type="button" onClick={() => onOpen(documentId)}>
+      {children}
+    </button>
+  )
+}
+
+function ContactSection({ t, language, onOpenLegal }) {
   const [form, setForm] = useState(initialContactForm)
   const [submitStatus, setSubmitStatus] = useState('idle')
+  const [consents, setConsents] = useState({ privacy: false, sensitive: false })
   const labels =
     language === 'zh'
       ? {
@@ -1002,6 +1308,10 @@ function ContactSection({ t, language }) {
           submitting: '正在提交...',
           success: '已提交咨询信息，我们会尽快与你确认方案。',
           error: '提交暂时失败，信息已保存在浏览器本地，请稍后重试或直接联系乐绅。',
+          privacyBefore: '我已阅读并同意',
+          privacyJoin: '、',
+          sensitiveConsent:
+            '我单独同意乐绅为评估咨询方案，处理我主动提交的脱发情况等健康相关敏感个人信息。',
         }
       : {
           formTitle: 'Book an image consultation',
@@ -1022,6 +1332,10 @@ function ContactSection({ t, language }) {
             'Inquiry submitted. We will confirm the plan with you soon.',
           error:
             'Submission failed for now. The information is saved locally in this browser.',
+          privacyBefore: 'I have read and agree to the',
+          privacyJoin: ', ',
+          sensitiveConsent:
+            'I separately consent to LESHEN processing hair-loss or other health-related sensitive information I voluntarily provide, solely to assess my consultation plan.',
         }
 
   function updateField(event) {
@@ -1042,6 +1356,7 @@ function ContactSection({ t, language }) {
     const submitDirectlyToZoho = async () => {
       await submitZohoWebForm(inquiry)
       setForm(initialContactForm)
+      setConsents({ privacy: false, sensitive: false })
       setSubmitStatus('success')
     }
 
@@ -1076,6 +1391,7 @@ function ContactSection({ t, language }) {
       }
 
       setForm(initialContactForm)
+      setConsents({ privacy: false, sensitive: false })
       setSubmitStatus('success')
     } catch (error) {
       console.error(error)
@@ -1171,6 +1487,49 @@ function ContactSection({ t, language }) {
               />
             </label>
           </div>
+          <div className="consent-list">
+            <div className="consent-row">
+              <input
+                id="privacy-consent"
+                name="privacyConsent"
+                type="checkbox"
+                checked={consents.privacy}
+                onChange={(event) => {
+                  setConsents((current) => ({ ...current, privacy: event.target.checked }))
+                  if (submitStatus !== 'idle') setSubmitStatus('idle')
+                }}
+                required
+              />
+              <label htmlFor="privacy-consent">
+                {labels.privacyBefore}{' '}
+                <LegalLinkButton documentId="privacy" onOpen={onOpenLegal}>
+                  {legalDocuments[language].privacy.title}
+                </LegalLinkButton>
+                {labels.privacyJoin}
+                <LegalLinkButton documentId="collection" onOpen={onOpenLegal}>
+                  {legalDocuments[language].collection.title}
+                </LegalLinkButton>
+                {labels.privacyJoin}
+                <LegalLinkButton documentId="consultation" onOpen={onOpenLegal}>
+                  {legalDocuments[language].consultation.title}
+                </LegalLinkButton>
+              </label>
+            </div>
+            <div className="consent-row">
+              <input
+                id="sensitive-consent"
+                name="sensitiveConsent"
+                type="checkbox"
+                checked={consents.sensitive}
+                onChange={(event) => {
+                  setConsents((current) => ({ ...current, sensitive: event.target.checked }))
+                  if (submitStatus !== 'idle') setSubmitStatus('idle')
+                }}
+                required
+              />
+              <label htmlFor="sensitive-consent">{labels.sensitiveConsent}</label>
+            </div>
+          </div>
           <button
             className="primary-cta form-submit"
             type="submit"
@@ -1197,6 +1556,7 @@ function getArticleIdFromPath(pathname) {
 function App() {
   const [language, setLanguage] = useState(getInitialLanguage)
   const [routePath, setRoutePath] = useState(() => window.location.pathname)
+  const [activeLegalDocument, setActiveLegalDocument] = useState(null)
   const hasPlayedOpeningRef = useRef(false)
   const t = copy[language]
   const isBlogLibrary = routePath.replace(/\/$/, '') === '/blog-library'
@@ -1554,6 +1914,12 @@ function App() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
         <Header language={language} setLanguage={setLanguage} t={t} />
         <BlogLibraryPage language={language} navigateToArticle={navigateToArticle} />
+        <LegalLayer
+          language={language}
+          activeDocument={activeLegalDocument}
+          onOpen={setActiveLegalDocument}
+          onClose={() => setActiveLegalDocument(null)}
+        />
       </>
     )
   }
@@ -1564,6 +1930,12 @@ function App() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
         <Header language={language} setLanguage={setLanguage} t={t} />
         <FaqLibraryPage language={language} />
+        <LegalLayer
+          language={language}
+          activeDocument={activeLegalDocument}
+          onOpen={setActiveLegalDocument}
+          onClose={() => setActiveLegalDocument(null)}
+        />
       </>
     )
   }
@@ -1577,6 +1949,12 @@ function App() {
           article={activeArticle}
           language={language}
           navigateToArticle={navigateToArticle}
+        />
+        <LegalLayer
+          language={language}
+          activeDocument={activeLegalDocument}
+          onOpen={setActiveLegalDocument}
+          onClose={() => setActiveLegalDocument(null)}
         />
       </>
     )
@@ -1602,8 +1980,18 @@ function App() {
           language={language}
           navigateToFaqLibrary={navigateToFaqLibrary}
         />
-        <ContactSection t={t} language={language} />
+        <ContactSection
+          t={t}
+          language={language}
+          onOpenLegal={setActiveLegalDocument}
+        />
       </main>
+      <LegalLayer
+        language={language}
+        activeDocument={activeLegalDocument}
+        onOpen={setActiveLegalDocument}
+        onClose={() => setActiveLegalDocument(null)}
+      />
     </>
   )
 }
