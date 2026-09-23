@@ -2,6 +2,11 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { blogArticles, blogCategories, blogCategoryLabels } from './content/blog'
+import {
+  channelCatalog,
+  createChannelTrackingPayload,
+  getChannelActions,
+} from './channelData'
 import './App.css'
 
 const heroVideo = 'https://assets.mixkit.co/videos/47577/47577-720.mp4'
@@ -11,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger)
 const copy = {
   zh: {
     nav: ['品牌', '服务', '博客', 'FAQ', '联系'],
+    channels: '官方渠道',
     contact: '预约咨询',
     lang: 'EN',
     heroTitle: '重新建立男性形象自信',
@@ -44,6 +50,7 @@ const copy = {
   },
   en: {
     nav: ['Brand', 'Services', 'Blog', 'FAQ', 'Contact'],
+    channels: 'Channels',
     contact: 'Book Consultation',
     lang: '中',
     heroTitle: 'Rebuild masculine confidence',
@@ -578,6 +585,10 @@ function Header({ language, setLanguage, t }) {
             {item}
           </a>
         ))}
+        <a href="/channels">
+          <span className="channels-label-full">{t.channels}</span>
+          <span className="channels-label-compact">{language === 'zh' ? '渠道' : 'Shop'}</span>
+        </a>
       </nav>
       <div className="header-actions">
         <button
@@ -1163,6 +1174,260 @@ function ArticlePage({ article, language, navigateToArticle }) {
   )
 }
 
+function ChannelHubPage({ language }) {
+  const [selectedPoster, setSelectedPoster] = useState(null)
+  const [copyStatus, setCopyStatus] = useState({ channel: '', state: 'idle' })
+  const closeButtonRef = useRef(null)
+  const labels =
+    language === 'zh'
+      ? {
+          back: '返回首页',
+          kicker: 'LESHEN · OFFICIAL CHANNELS',
+          title: '乐绅官方渠道',
+          intro: '选择您常用的平台，查看商品、预约服务或了解门店。所有入口均由乐绅官网统一整理。',
+          open: '打开店铺',
+          copy: '复制小程序口令',
+          copied: '已复制，请打开对应 App',
+          copyError: '复制失败，请长按下方口令复制',
+          viewPoster: '查看扫码图',
+          miniProgram: '小程序口令',
+          posterHint: '点击查看完整扫码图',
+          noPoster: '美',
+          closePoster: '关闭扫码图',
+          saveHint: '长按或保存图片，再在对应 App 中扫一扫。',
+          descriptions: {
+            taobao: '购买乐绅假发洗护、胶片等日常护理用品。',
+            douyin: '查看乐绅产品、佩戴相关内容与抖音店铺。',
+            dianping: '查看乐绅男士高端假发定制（静安店）详情与用户评价。',
+            meituan: '通过美团小程序查看门店服务与团购信息。',
+          },
+        }
+      : {
+          back: 'Back to home',
+          kicker: 'LESHEN · OFFICIAL CHANNELS',
+          title: 'LESHEN official channels',
+          intro: 'Choose your preferred platform to shop, book a service, or learn more about our Shanghai studio.',
+          open: 'Open store',
+          copy: 'Copy mini-program code',
+          copied: 'Copied. Open the corresponding app to continue.',
+          copyError: 'Copy failed. Press and hold the code below to copy it.',
+          viewPoster: 'View QR poster',
+          miniProgram: 'Mini-program code',
+          posterHint: 'Open the complete QR poster',
+          noPoster: '美',
+          closePoster: 'Close QR poster',
+          saveHint: 'Press and hold or save this image, then scan it in the corresponding app.',
+          descriptions: {
+            taobao: 'Shop LESHEN hair-system care, tape, and everyday maintenance products.',
+            douyin: 'Explore LESHEN products, wearing tips, and our Douyin store.',
+            dianping: 'View our Jing\'an studio, service details, and customer reviews on Dianping.',
+            meituan: 'Open the Meituan mini program for store services and available offers.',
+          },
+        }
+
+  useEffect(() => {
+    if (!selectedPoster) return undefined
+
+    const previousOverflow = document.body.style.overflow
+
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') setSelectedPoster(null)
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    closeButtonRef.current?.focus()
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [selectedPoster])
+
+  function trackChannel(channelId, action) {
+    const payload = createChannelTrackingPayload(channelId, action)
+
+    window.gtag?.('event', payload.event, {
+      channel: payload.channel,
+      action: payload.action,
+    })
+    window._hmt?.push(['_trackEvent', 'channels', payload.action, payload.channel])
+  }
+
+  async function copyMiniProgramToken(channel) {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(channel.miniProgramToken)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = channel.miniProgramToken
+        textArea.setAttribute('readonly', '')
+        textArea.style.position = 'fixed'
+        textArea.style.opacity = '0'
+        document.body.appendChild(textArea)
+        textArea.select()
+        const copied = document.execCommand('copy')
+        textArea.remove()
+        if (!copied) throw new Error('Copy command was not accepted')
+      }
+
+      setCopyStatus({ channel: channel.id, state: 'success' })
+      trackChannel(channel.id, 'copy_mini_program')
+    } catch {
+      setCopyStatus({ channel: channel.id, state: 'error' })
+    }
+  }
+
+  function openPoster(channel) {
+    setSelectedPoster(channel)
+    trackChannel(channel.id, 'view_poster')
+  }
+
+  return (
+    <main className="channels-page">
+      <section className="container channels-shell">
+        <a className="article-back" href="/#home">
+          {labels.back}
+        </a>
+        <header className="channels-hero">
+          <span className="article-kicker">{labels.kicker}</span>
+          <h1>{labels.title}</h1>
+          <p>{labels.intro}</p>
+        </header>
+
+        <div className="channel-grid">
+          {channelCatalog.map((channel, index) => {
+            const actions = getChannelActions(channel.id)
+            const hasExternalLink = actions.some(({ type }) => type === 'external')
+            const hasMiniProgram = actions.some(({ type }) => type === 'miniProgram')
+            const feedback = copyStatus.channel === channel.id ? copyStatus.state : 'idle'
+
+            return (
+              <article
+                className={`channel-card channel-card--${channel.theme}`}
+                key={channel.id}
+              >
+                <div className="channel-card-copy">
+                  <div className="channel-card-heading">
+                    <span className="channel-card-index">0{index + 1}</span>
+                    <span className="channel-card-mark" aria-hidden="true">
+                      {channel.name.slice(0, 1)}
+                    </span>
+                  </div>
+                  <span className="channel-card-en">{channel.englishName}</span>
+                  <h2>{channel.name}</h2>
+                  <p>{labels.descriptions[channel.id]}</p>
+
+                  {hasMiniProgram ? (
+                    <div className="channel-token">
+                      <span>{labels.miniProgram}</span>
+                      <code>{channel.miniProgramToken}</code>
+                    </div>
+                  ) : null}
+
+                  <div className="channel-actions">
+                    {hasExternalLink ? (
+                      <a
+                        className="channel-primary"
+                        href={channel.webUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackChannel(channel.id, 'open_store')}
+                      >
+                        {labels.open}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : null}
+                    {hasMiniProgram ? (
+                      <button
+                        className="channel-primary"
+                        type="button"
+                        onClick={() => copyMiniProgramToken(channel)}
+                      >
+                        {labels.copy}
+                      </button>
+                    ) : null}
+                    {channel.poster ? (
+                      <button
+                        className="channel-secondary"
+                        type="button"
+                        onClick={() => openPoster(channel)}
+                      >
+                        {labels.viewPoster}
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <p className={`channel-feedback is-${feedback}`} aria-live="polite">
+                    {feedback === 'success'
+                      ? labels.copied
+                      : feedback === 'error'
+                        ? labels.copyError
+                        : '\u00a0'}
+                  </p>
+                </div>
+
+                {channel.poster ? (
+                  <button
+                    className="channel-poster-button"
+                    type="button"
+                    onClick={() => openPoster(channel)}
+                    aria-label={`${labels.viewPoster}：${channel.name}`}
+                  >
+                    <img src={channel.poster} alt={`${channel.name}${labels.viewPoster}`} />
+                    <span>{labels.posterHint}</span>
+                  </button>
+                ) : (
+                  <div className="channel-placeholder" aria-hidden="true">
+                    <span>{labels.noPoster}</span>
+                    <small>MEITUAN MINI PROGRAM</small>
+                  </div>
+                )}
+              </article>
+            )
+          })}
+        </div>
+      </section>
+
+      {selectedPoster ? (
+        <div
+          className="poster-modal-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSelectedPoster(null)
+          }}
+        >
+          <section
+            className="poster-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="poster-modal-title"
+          >
+            <header>
+              <div>
+                <span>LESHEN · {selectedPoster.englishName}</span>
+                <h2 id="poster-modal-title">{selectedPoster.name}</h2>
+              </div>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={() => setSelectedPoster(null)}
+                aria-label={labels.closePoster}
+              >
+                ×
+              </button>
+            </header>
+            <div className="poster-modal-media">
+              <img src={selectedPoster.poster} alt={`${selectedPoster.name}${labels.viewPoster}`} />
+            </div>
+            <p>{labels.saveHint}</p>
+          </section>
+        </div>
+      ) : null}
+    </main>
+  )
+}
+
 function LegalModal({ documentId, language, onClose }) {
   const closeButtonRef = useRef(null)
   const legalDocument = documentId ? legalDocuments[language][documentId] : null
@@ -1253,6 +1518,10 @@ function LegalFooter({ language, onOpen }) {
               ? `${personalInformationHandler} · 上海`
               : `${personalInformationHandler} · Shanghai`}
           </p>
+          <a className="footer-channel-link" href="/channels">
+            {language === 'zh' ? '进入乐绅官方渠道' : 'Explore LESHEN official channels'}
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
         <nav className="legal-links" aria-label={language === 'zh' ? '法律与隐私' : 'Legal and privacy'}>
           {legalDocumentOrder.map((documentId) => (
@@ -1561,6 +1830,7 @@ function App() {
   const t = copy[language]
   const isBlogLibrary = routePath.replace(/\/$/, '') === '/blog-library'
   const isFaqLibrary = routePath.replace(/\/$/, '') === '/faq'
+  const isChannelsPage = routePath.replace(/\/$/, '') === '/channels'
   const articleId = getArticleIdFromPath(routePath)
   const activeArticle = articleId
     ? blogArticles.find((article) => article.id === articleId)
@@ -1601,7 +1871,7 @@ function App() {
   }, [articleId])
 
   useLayoutEffect(() => {
-    if (!articleId && !isBlogLibrary && !isFaqLibrary) return
+    if (!articleId && !isBlogLibrary && !isFaqLibrary && !isChannelsPage) return
 
     function scrollToPageTop() {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
@@ -1615,7 +1885,7 @@ function App() {
       window.cancelAnimationFrame(frameId)
       window.clearTimeout(timeoutId)
     }
-  }, [articleId, isBlogLibrary, isFaqLibrary, routePath])
+  }, [articleId, isBlogLibrary, isChannelsPage, isFaqLibrary, routePath])
 
   useLayoutEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -1625,7 +1895,9 @@ function App() {
       return undefined
     }
 
-    const isStandalonePage = Boolean(articleId || isBlogLibrary || isFaqLibrary)
+    const isStandalonePage = Boolean(
+      articleId || isBlogLibrary || isFaqLibrary || isChannelsPage,
+    )
     const ctx = gsap.context(() => {
       const slowEase = 'expo.out'
       const isCompactMotion = window.matchMedia('(max-width: 760px)').matches
@@ -1850,7 +2122,7 @@ function App() {
             y: 0,
             duration: 0.72,
           })
-          .fromTo('.article-page-card, .blog-library-hero, .faq-library-hero', {
+          .fromTo('.article-page-card, .blog-library-hero, .faq-library-hero, .channels-hero', {
             autoAlpha: 0,
             y: isCompactMotion ? 48 : 96,
             scaleY: isCompactMotion ? 0.94 : 0.78,
@@ -1864,7 +2136,7 @@ function App() {
             duration: isCompactMotion ? 0.76 : 1.1,
           }, '-=0.42')
           .fromTo(
-            '.article-page-content p, .article-tags span, .blog-controls, .blog-results-head, .blog-card, .faq-item, .related-card',
+            '.article-page-content p, .article-tags span, .blog-controls, .blog-results-head, .blog-card, .faq-item, .related-card, .channel-card',
             {
               autoAlpha: 0,
               y: isCompactMotion ? 36 : 64,
@@ -1889,7 +2161,7 @@ function App() {
     return () => {
       ctx.revert()
     }
-  }, [articleId, isBlogLibrary, isFaqLibrary, language, routePath])
+  }, [articleId, isBlogLibrary, isChannelsPage, isFaqLibrary, language, routePath])
 
   function navigateToArticle(article) {
     if (!article) return
@@ -1930,6 +2202,22 @@ function App() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
         <Header language={language} setLanguage={setLanguage} t={t} />
         <FaqLibraryPage language={language} />
+        <LegalLayer
+          language={language}
+          activeDocument={activeLegalDocument}
+          onOpen={setActiveLegalDocument}
+          onClose={() => setActiveLegalDocument(null)}
+        />
+      </>
+    )
+  }
+
+  if (isChannelsPage) {
+    return (
+      <>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        <Header language={language} setLanguage={setLanguage} t={t} />
+        <ChannelHubPage language={language} />
         <LegalLayer
           language={language}
           activeDocument={activeLegalDocument}
