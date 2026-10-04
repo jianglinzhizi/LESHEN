@@ -2,6 +2,8 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { blogArticles, blogCategories, blogCategoryLabels } from './content/blog'
+import { loadArticleContent } from './content/blogLoaders'
+import { getArticleContentBlocks } from './blogContent'
 import {
   channelCatalog,
   createChannelTrackingPayload,
@@ -341,9 +343,11 @@ const blogCopy = {
     backToBlog: '返回博客',
     libraryTitle: '博客内容库',
     libraryBody:
-      '汇总男士假发、发际线、保养、植发比较和商务形象相关内容，后续发布的新文章也会统一进入这里。',
+      '收录乐绅公众号发布的男士假发、佩戴、护理、发际线与形象设计内容，可按分类或关键词查找。',
     missingTitle: '文章不存在',
     missingBody: '这篇内容可能已经调整，请回到博客内容库重新选择。',
+    loadingBody: '正在加载文章正文…',
+    loadError: '正文暂时无法加载，请刷新页面后重试。',
     relatedTitle: '相关文章',
     libraryKicker: 'LESHEN Blog Library',
   },
@@ -359,9 +363,11 @@ const blogCopy = {
     backToBlog: 'Back to Blog',
     libraryTitle: 'Blog Library',
     libraryBody:
-      'A complete library covering men’s hair systems, hairlines, care, transplant comparison and business image. Future articles will be collected here.',
+      'LESHEN WeChat articles about men’s hair systems, wearing, care, hairlines and image design. Article content is currently available in Chinese.',
     missingTitle: 'Article not found',
     missingBody: 'This article may have changed. Please return to the blog library and choose again.',
+    loadingBody: 'Loading article…',
+    loadError: 'The article could not be loaded. Please refresh and try again.',
     relatedTitle: 'Related Articles',
     libraryKicker: 'LESHEN Blog Library',
   },
@@ -406,6 +412,30 @@ function getArticleCopy(article, language) {
     ...article,
     category: getCategoryLabel(article.category, language),
   }
+}
+
+function ArticleContent({ content }) {
+  return getArticleContentBlocks(content).map((block, index) => {
+    const key = `${block.type}-${index}`
+
+    if (block.type === 'heading') {
+      return block.level === 3 ? (
+        <h3 key={key}>{block.text}</h3>
+      ) : (
+        <h2 key={key}>{block.text}</h2>
+      )
+    }
+
+    if (block.type === 'image') {
+      return (
+        <figure className="article-content-image" key={key}>
+          <img alt={block.alt || ''} decoding="async" loading="lazy" src={block.src} />
+        </figure>
+      )
+    }
+
+    return <p key={key}>{block.text}</p>
+  })
 }
 
 function getMotionTextUnits(text) {
@@ -872,6 +902,15 @@ function BlogSection({ t, language, navigateToArticle, navigateToBlogLibrary }) 
             type="button"
           >
             <span>{labels.featured}</span>
+            {featuredArticleCopy.coverImage && (
+              <img
+                alt=""
+                className="blog-card-cover blog-featured-cover"
+                decoding="async"
+                loading="lazy"
+                src={featuredArticleCopy.coverImage}
+              />
+            )}
             <h3>{featuredArticleCopy.title}</h3>
             <p>{featuredArticleCopy.summary}</p>
             <div className="article-meta">
@@ -939,6 +978,15 @@ function BlogSection({ t, language, navigateToArticle, navigateToBlogLibrary }) 
                 onClick={() => navigateToArticle(article)}
                 type="button"
               >
+                {articleCopy.coverImage && (
+                  <img
+                    alt=""
+                    className="blog-card-cover"
+                    decoding="async"
+                    loading="lazy"
+                    src={articleCopy.coverImage}
+                  />
+                )}
                 <div className="article-meta">
                   <span>{articleCopy.category}</span>
                 </div>
@@ -1069,6 +1117,15 @@ function BlogLibraryPage({ language, navigateToArticle }) {
                 onClick={() => navigateToArticle(article)}
                 type="button"
               >
+                {articleCopy.coverImage && (
+                  <img
+                    alt=""
+                    className="blog-card-cover"
+                    decoding="async"
+                    loading="lazy"
+                    src={articleCopy.coverImage}
+                  />
+                )}
                 <div className="article-meta">
                   <span>{articleCopy.category}</span>
                 </div>
@@ -1097,11 +1154,41 @@ function BlogLibraryPage({ language, navigateToArticle }) {
 function ArticlePage({ article, language, navigateToArticle }) {
   const labels = blogCopy[language]
   const articleCopy = getArticleCopy(article, language)
+  const articleId = article?.id
+  const [articleContent, setArticleContent] = useState([])
+  const [contentStatus, setContentStatus] = useState(articleId ? 'loading' : 'idle')
   const relatedArticles = article
     ? blogArticles
         .filter((item) => item.category === article.category && item.id !== article.id)
         .slice(0, 3)
     : []
+
+  useEffect(() => {
+    if (!articleId) {
+      setArticleContent([])
+      setContentStatus('idle')
+      return undefined
+    }
+
+    let isCurrent = true
+    setArticleContent([])
+    setContentStatus('loading')
+
+    loadArticleContent(articleId)
+      .then((content) => {
+        if (!isCurrent) return
+        setArticleContent(content)
+        setContentStatus('ready')
+      })
+      .catch(() => {
+        if (!isCurrent) return
+        setContentStatus('error')
+      })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [articleId])
 
   if (!article) {
     return (
@@ -1132,10 +1219,15 @@ function ArticlePage({ article, language, navigateToArticle }) {
           </div>
           <h1>{articleCopy.title}</h1>
           <p className="article-lede">{articleCopy.summary}</p>
+          {articleCopy.coverImage && (
+            <figure className="article-cover-image">
+              <img alt={articleCopy.title} decoding="async" src={articleCopy.coverImage} />
+            </figure>
+          )}
           <div className="article-page-content">
-            {(articleCopy.content || []).map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {contentStatus === 'loading' && <p className="article-loading">{labels.loadingBody}</p>}
+            {contentStatus === 'error' && <p className="article-load-error">{labels.loadError}</p>}
+            {contentStatus === 'ready' && <ArticleContent content={articleContent} />}
           </div>
           <div className="article-tags">
             {articleCopy.tags.map((tag) => (

@@ -1,281 +1,447 @@
+// 此文件由 scripts/import_wechat_blog.py 从公众号 Word 文档生成。
 export const blogCategories = [
-  '全部',
-  '男士假发',
-  '假发保养',
-  '脱发知识',
-  '真人案例',
-  '男士发型',
-  '发际线',
-  '补发',
-  '植发比较',
-  '假发 VS 植发',
-  '商务男士形象',
+  "全部",
+  "男士假发",
+  "假发保养",
+  "男士发型",
+  "发际线",
+  "品牌理念"
 ]
 
 export const blogCategoryLabels = {
-  全部: { zh: '全部', en: 'All' },
-  男士假发: { zh: '男士假发', en: 'Men Hair Systems' },
-  假发保养: { zh: '假发保养', en: 'Care' },
-  脱发知识: { zh: '脱发知识', en: 'Hair Loss' },
-  真人案例: { zh: '真人案例', en: 'Real Cases' },
-  男士发型: { zh: '男士发型', en: 'Men Hairstyles' },
-  发际线: { zh: '发际线', en: 'Hairline' },
-  补发: { zh: '补发', en: 'Hair Replacement' },
-  植发比较: { zh: '植发比较', en: 'Transplant Compare' },
-  '假发 VS 植发': { zh: '假发 VS 植发', en: 'Wigs vs Transplant' },
-  商务男士形象: { zh: '商务男士形象', en: 'Business Image' },
+  "全部": {
+    "zh": "全部",
+    "en": "All"
+  },
+  "男士假发": {
+    "zh": "男士假发",
+    "en": "Men Hair Systems"
+  },
+  "假发保养": {
+    "zh": "假发保养",
+    "en": "Care"
+  },
+  "男士发型": {
+    "zh": "男士发型",
+    "en": "Men Hairstyles"
+  },
+  "发际线": {
+    "zh": "发际线",
+    "en": "Hairline"
+  },
+  "品牌理念": {
+    "zh": "品牌理念",
+    "en": "Brand Principles"
+  }
 }
 
 export const blogArticles = [
   {
-    id: 'hair-system-basics',
-    title: '男士假发和补发系统有什么区别？',
-    category: '男士假发',
-    summary: '从材料、佩戴方式、自然度和维护周期讲清楚男士假发、补发系统和普通假发的区别。',
-    content: [
-      '男士假发通常被理解为成品佩戴，而补发系统更强调按头型、发量、发际线和生活习惯进行定制。',
-      '真正自然的效果来自底网、真人发、密度和修剪的共同配合，而不是单纯把头发盖上去。',
-      '乐绅会先判断脱发区域和目标形象，再决定适合的材质、佩戴方式和后续维护周期。',
+    "id": "wechat-f592e724a4",
+    "title": "自然，不是头发越多越好｜乐绅的男士发型设计标准",
+    "category": "男士发型",
+    "summary": "一套自然的男士假发，应该经得起正面、侧面、头顶，以及真实生活场景中的观察。",
+    "tags": [
+      "男士发型"
     ],
-    tags: ['真人发', '补发系统', '自然度'],
-    readTime: '6 min',
-    date: '2026-07-08',
-    featured: true,
-    en: {
-      title: 'What is the difference between men’s wigs and hair systems?',
-      summary:
-        'A clear comparison of materials, attachment methods, natural appearance and maintenance cycles.',
-      content: [
-        'Men’s wigs are often understood as ready-made pieces, while hair systems focus on customization around head shape, density, hairline and lifestyle.',
-        'A natural result comes from the base, human hair, density and final haircut working together, not simply covering the scalp.',
-        'LESHEN first evaluates the hair loss area and target image, then plans the material, wearing method and ongoing maintenance cycle.',
-      ],
-      tags: ['Human Hair', 'Hair System', 'Natural Look'],
-    },
+    "readTime": "5 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:18+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-f592e724a4/cover.webp",
+    "sourceFile": "自然，不是头发越多越好｜乐绅的男士发型设计标准.docx"
   },
   {
-    id: 'hairline-natural-look',
-    title: '自然发际线应该怎么设计？',
-    category: '发际线',
-    summary: '发际线不是越低越好，需要结合年龄、脸型、额头比例和职业形象一起判断。',
-    content: [
-      '自然发际线需要保留年龄感和脸型比例，过低或过整齐都会显得不真实。',
-      '设计时要看额头高度、眉眼比例、鬓角连接和原生头发走向。',
-      '对商务男士来说，低调、干净、稳定的发际线往往比夸张年轻化更合适。',
+    "id": "wechat-aa0efb3827",
+    "title": "第一次到乐绅，会经历什么？",
+    "category": "男士假发",
+    "summary": "不需要提前懂产品，也不需要马上决定购买。第一次到乐绅，我们会先了解你的实际情况，再一起判断什么方案更合适。",
+    "tags": [
+      "男士假发"
     ],
-    tags: ['发际线', '脸型', '形象设计'],
-    readTime: '5 min',
-    date: '2026-07-06',
-    en: {
-      title: 'How should a natural hairline be designed?',
-      summary:
-        'A hairline is not simply lower-is-better. Age, face shape, forehead ratio and professional image all matter.',
-      content: [
-        'A natural hairline should preserve age character and facial proportion. A line that is too low or too uniform can look artificial.',
-        'Design decisions should consider forehead height, brow-eye ratio, temple connection and the direction of native hair growth.',
-        'For business men, a discreet, clean and stable hairline is usually more appropriate than an exaggerated younger look.',
-      ],
-      tags: ['Hairline', 'Face Shape', 'Image Design'],
-    },
+    "readTime": "5 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:25+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-aa0efb3827/cover.webp",
+    "sourceFile": "第一次到乐绅，会经历什么？.docx"
   },
   {
-    id: 'wig-vs-transplant',
-    title: '假发 VS 植发：哪种更适合商务男士？',
-    category: '假发 VS 植发',
-    summary: '比较见效周期、预算、恢复期、造型自由度和后续维护，帮助用户做出更稳妥的选择。',
-    content: [
-      '假发系统的优势是见效快、造型可控，适合需要快速改善形象的人群。',
-      '植发更依赖毛囊资源和恢复周期，短期内不一定能满足正式场合的形象需求。',
-      '如果当前工作和社交对形象要求很高，可以先用定制假发解决当下需求，再评估长期方案。',
+    "id": "wechat-947e194ce4",
+    "title": "一套男士假发能使用多久？比年限更重要的6件事",
+    "category": "假发保养",
+    "summary": "产品寿命不是一个适用于所有人的固定数字。佩戴频率、出汗、清洁、造型和维护，共同决定一套男士假发能以什么状态陪伴你。",
+    "tags": [
+      "假发保养"
     ],
-    tags: ['植发比较', '商务形象', '预算'],
-    readTime: '8 min',
-    date: '2026-07-03',
-    en: {
-      title: 'Wigs vs hair transplant: which suits business men better?',
-      summary:
-        'Compare visible results, budget, recovery time, styling freedom and maintenance to make a steadier decision.',
-      content: [
-        'The advantage of a hair system is speed and styling control, which suits men who need an immediate image upgrade.',
-        'Hair transplantation depends on donor hair resources and recovery time, so it may not meet short-term image needs for formal occasions.',
-        'If work and social situations demand a strong current image, a custom hair system can solve the immediate need before evaluating long-term options.',
-      ],
-      tags: ['Transplant Compare', 'Business Image', 'Budget'],
-    },
+    "readTime": "6 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:37+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-947e194ce4/cover.webp",
+    "sourceFile": "一套男士假发能使用多久？比年限更重要的6件事.docx"
   },
   {
-    id: 'maintenance-cycle',
-    title: '男士假发多久护理一次？',
-    category: '假发保养',
-    summary: '解释清洗、补胶、修剪和色素还原的常见周期，以及不同生活习惯下的护理差异。',
-    content: [
-      '护理周期会受到出汗、运动频率、清洗习惯和佩戴方式影响。',
-      '日常护理重点是保持底网清洁、发丝顺滑和贴合稳定。',
-      '定期维护可以延长使用寿命，也能让发型长期保持自然状态。',
+    "id": "wechat-a7c171ae64",
+    "title": "男士假发价格怎么比较？别忽略这6项成本",
+    "category": "男士假发",
+    "summary": "相似的最终发型，背后可能是完全不同的产品、定制程度和服务内容。真正有效的比价，不只是比较一个报价数字，而是确认这个数字究竟包含什么。",
+    "tags": [
+      "男士假发",
+      "价格"
     ],
-    tags: ['护理周期', '清洗', '维护'],
-    readTime: '4 min',
-    date: '2026-06-28',
-    en: {
-      title: 'How often should men maintain a hair system?',
-      summary:
-        'Understand common cycles for cleaning, rebonding, trimming and color restoration across different lifestyles.',
-      content: [
-        'The maintenance cycle is affected by sweating, exercise frequency, cleaning habits and the wearing method.',
-        'Daily care focuses on keeping the base clean, the hair smooth and the attachment stable.',
-        'Regular maintenance can extend service life and keep the hairstyle looking natural over time.',
-      ],
-      tags: ['Care Cycle', 'Cleaning', 'Maintenance'],
-    },
+    "readTime": "6 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:44+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-a7c171ae64/cover.webp",
+    "sourceFile": "男士假发价格怎么比较？别忽略这6项成本.docx"
   },
   {
-    id: 'business-style-guide',
-    title: '商务男士如何选择低调自然的发型？',
-    category: '商务男士形象',
-    summary: '从行业属性、年龄感、发量密度和日常打理难度出发，选择不夸张但有效提升气质的发型。',
-    content: [
-      '商务发型首先要稳定、干净、可信赖，不需要过分追求潮流感。',
-      '发量密度、发际线高度和侧区衔接会直接影响整体气质。',
-      '乐绅会根据职业、年龄和日常穿着风格，设计更适合长期使用的发型方案。',
+    "id": "wechat-ee4a3c7674",
+    "title": "男士假发需要每天摘吗？两种佩戴思路怎么选",
+    "category": "男士假发",
+    "summary": "是否每天摘戴，不应只看方便或稳固，而要结合工作、运动、清洁、作息和维护习惯综合判断。",
+    "tags": [
+      "男士假发",
+      "佩戴"
     ],
-    tags: ['商务男士', '发型推荐', '低调自然'],
-    readTime: '7 min',
-    date: '2026-06-24',
-    en: {
-      title: 'How should business men choose a discreet natural hairstyle?',
-      summary:
-        'Choose a style by industry, age character, density and daily grooming difficulty, without looking exaggerated.',
-      content: [
-        'A business hairstyle should first feel stable, clean and trustworthy. It does not need to chase every trend.',
-        'Hair density, hairline height and side connection directly influence the overall impression.',
-        'LESHEN designs long-term hairstyle solutions based on profession, age and everyday dressing style.',
-      ],
-      tags: ['Business Men', 'Hairstyle Guide', 'Discreet Natural'],
-    },
+    "readTime": "7 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:49+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-ee4a3c7674/cover.webp",
+    "sourceFile": "男士假发需要每天摘吗？两种佩戴思路怎么选.docx"
   },
   {
-    id: 'thinning-crown-case',
-    title: '头顶稀疏真人案例：如何补出自然发量？',
-    category: '真人案例',
-    summary: '用案例方式说明头顶稀疏人群的密度设计、分区衔接和佩戴后的视觉变化。',
-    content: [
-      '头顶稀疏的核心不是简单加厚，而是控制密度渐变和旋区方向。',
-      '如果密度过高，会和周围原生发产生明显反差。',
-      '案例设计通常会优先保证远看发量自然，近看头皮透气和分区衔接合理。',
+    "id": "wechat-9a4eb78aaf",
+    "title": "在线咨询乐绅前，如何拍摄脱发区域照片？",
+    "category": "男士假发",
+    "summary": "四组清晰照片，加上真实的生活与佩戴习惯，可以让第一次沟通更有效率。",
+    "tags": [
+      "男士假发",
+      "咨询"
     ],
-    tags: ['真人案例', '头顶稀疏', '发量'],
-    readTime: '5 min',
-    date: '2026-06-19',
-    en: {
-      title: 'Real case: how to restore natural volume on a thinning crown?',
-      summary:
-        'A case-based look at density design, area blending and the visual change after wearing.',
-      content: [
-        'The key for a thinning crown is not simply adding thickness, but controlling density gradients and crown direction.',
-        'If the density is too high, it can create a clear contrast with native hair around it.',
-        'Case planning usually prioritizes natural volume from a distance while keeping the scalp breathable and transitions reasonable up close.',
-      ],
-      tags: ['Real Case', 'Thinning Crown', 'Volume'],
-    },
+    "readTime": "7 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:54+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-9a4eb78aaf/cover.webp",
+    "sourceFile": "在线咨询乐绅前，如何拍摄脱发区域照片？.docx"
   },
   {
-    id: 'hair-loss-patterns',
-    title: '常见男性脱发类型与解决思路',
-    category: '脱发知识',
-    summary: '梳理 M 型发际线、头顶稀疏、整体发量减少等常见情况，以及对应的形象解决方案。',
-    content: [
-      '男性脱发常见于发际线后移、头顶稀疏和整体发量下降。',
-      '不同脱发类型适合的补发区域、密度和发型方向并不相同。',
-      '先判断问题类型，再设计解决方案，才能避免做出不自然的效果。',
+    "id": "wechat-4c1cdb81c5",
+    "title": "为什么同一款男士发型，不能直接复制给每个人？",
+    "category": "男士发型",
+    "summary": "参考图负责表达期待，定制设计负责让期待在本人身上成立。",
+    "tags": [
+      "男士发型"
     ],
-    tags: ['脱发知识', 'M 型发际线', '头顶稀疏'],
-    readTime: '6 min',
-    date: '2026-06-12',
-    en: {
-      title: 'Common male hair loss patterns and solution paths',
-      summary:
-        'Understand M-shaped hairlines, thinning crowns and overall density loss, then match the right image solution.',
-      content: [
-        'Common male hair loss patterns include receding hairlines, thinning crowns and overall density reduction.',
-        'Different patterns require different replacement areas, density choices and hairstyle directions.',
-        'Identifying the pattern first helps avoid an unnatural result when designing the final solution.',
-      ],
-      tags: ['Hair Loss', 'M-shaped Hairline', 'Thinning Crown'],
-    },
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:00:59+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-4c1cdb81c5/cover.webp",
+    "sourceFile": "为什么同一款男士发型，不能直接复制给每个人？.docx"
   },
   {
-    id: 'replacement-refill',
-    title: '补发后还能调整发型吗？',
-    category: '补发',
-    summary: '说明补发后的修剪、烫染、换风格和二次维护边界，让用户提前了解使用弹性。',
-    content: [
-      '补发后可以根据脸型和场景继续修剪造型，但需要尊重发丝长度和底网结构。',
-      '烫染可以做，但会影响发丝寿命，因此更建议提前规划目标发型。',
-      '后续维护时也可以根据状态微调发量、层次和发色。',
+    "id": "wechat-5fa7bc2c13",
+    "title": "怎样判断男士假发前后对比是否真实？",
+    "category": "男士假发",
+    "summary": "相同机位、距离、灯光和人物状态，是判断发型变化的基本前提。",
+    "tags": [
+      "男士假发"
     ],
-    tags: ['补发', '造型', '售后维护'],
-    readTime: '4 min',
-    date: '2026-06-05',
-    en: {
-      title: 'Can the hairstyle still be adjusted after hair replacement?',
-      summary:
-        'Learn the boundaries of trimming, perming, coloring, style changes and follow-up maintenance.',
-      content: [
-        'After hair replacement, the style can still be trimmed around face shape and use scenario, while respecting hair length and base structure.',
-        'Perming and coloring are possible, but they affect hair lifespan, so the target style is best planned early.',
-        'During follow-up maintenance, density, layers and color can also be adjusted according to condition.',
-      ],
-      tags: ['Hair Replacement', 'Styling', 'Aftercare'],
-    },
+    "readTime": "6 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:01:04+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-5fa7bc2c13/cover.webp",
+    "sourceFile": "怎样判断男士假发前后对比是否真实？.docx"
   },
   {
-    id: 'men-hairstyle-density',
-    title: '发量密度如何影响男士发型效果？',
-    category: '男士发型',
-    summary: '同一个发型在不同密度下效果完全不同，定制时需要兼顾自然度、年龄感和脸型比例。',
-    content: [
-      '发量密度决定了发型的年轻感、自然度和日常打理难度。',
-      '密度太低会显得改善不明显，密度太高又容易假。',
-      '理想状态是让新发量和原生发自然连接，同时符合年龄和职业气质。',
+    "id": "wechat-157f030467",
+    "title": "男士假发如何匹配发色？为什么“自然黑”还不够",
+    "category": "男士发型",
+    "summary": "自然发色包含深浅、冷暖、光泽、白发比例和发质，不能只用一个色号概括。",
+    "tags": [
+      "男士发型",
+      "发色"
     ],
-    tags: ['男士发型', '发量密度', '脸型'],
-    readTime: '5 min',
-    date: '2026-05-29',
-    en: {
-      title: 'How does density affect men’s hairstyle results?',
-      summary:
-        'The same hairstyle changes completely with different density, so naturalness, age and face shape must be balanced.',
-      content: [
-        'Hair density determines how young, natural and easy to manage a hairstyle feels.',
-        'Too little density can make the improvement weak, while too much density can look fake.',
-        'The ideal result connects naturally with native hair while matching age and professional temperament.',
-      ],
-      tags: ['Men Hairstyles', 'Density', 'Face Shape'],
-    },
+    "readTime": "7 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:01:08+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-157f030467/cover.webp",
+    "sourceFile": "男士假发如何匹配发色？为什么“自然黑”还不够.docx"
   },
   {
-    id: 'transplant-comparison',
-    title: '植发比较：为什么有人更适合先做假发？',
-    category: '植发比较',
-    summary: '从恢复期、毛囊资源、成活率预期和即时形象需求，分析假发和植发的选择顺序。',
-    content: [
-      '植发需要恢复期，也需要等待生长周期，不能马上改变当前形象。',
-      '如果毛囊资源不足，植发效果也可能达不到理想密度。',
-      '对于急需改善商务形象的人，先使用定制假发往往更灵活，也更可控。',
+    "id": "wechat-f72cab4e05",
+    "title": "从一套产品到一个人的发型，中间还差什么？",
+    "category": "男士发型",
+    "summary": "发际线、密度、分线、轮廓和原生头发衔接，共同决定男士假发最终是否自然。",
+    "tags": [
+      "男士发型"
     ],
-    tags: ['植发比较', '恢复期', '即时效果'],
-    readTime: '7 min',
-    date: '2026-05-20',
-    en: {
-      title: 'Hair transplant comparison: why are some men better starting with a hair system?',
-      summary:
-        'Compare recovery time, donor resources, survival-rate expectations and immediate image needs.',
-      content: [
-        'A hair transplant requires recovery and a growth cycle, so it cannot immediately change the current image.',
-        'If donor hair resources are limited, the transplant result may also fall short of the desired density.',
-        'For men who urgently need to improve their business image, starting with a custom hair system is often more flexible and controllable.',
-      ],
-      tags: ['Transplant Compare', 'Recovery Time', 'Immediate Result'],
-    },
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:01:12+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-f72cab4e05/cover.webp",
+    "sourceFile": "从一套产品到一个人的发型，中间还差什么？.docx"
   },
+  {
+    "id": "wechat-e66a77fc82",
+    "title": "一次有效的男士假发咨询，应该问哪些问题？",
+    "category": "男士假发",
+    "summary": "姓名和电话只能建立联系，真实需求才能帮助顾问判断方向。",
+    "tags": [
+      "男士假发",
+      "咨询"
+    ],
+    "readTime": "9 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:01:15+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-e66a77fc82/cover.webp",
+    "sourceFile": "一次有效的男士假发咨询，应该问哪些问题？.docx"
+  },
+  {
+    "id": "wechat-c505fcfd26",
+    "title": "男士假发毛躁、打结或褪色后，应该维护还是换新？",
+    "category": "假发保养",
+    "summary": "不按固定年限下结论，先从发丝、颜色、底网结构和实际佩戴体验判断。",
+    "tags": [
+      "假发保养",
+      "维护"
+    ],
+    "readTime": "9 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:01:19+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-c505fcfd26/cover.webp",
+    "sourceFile": "男士假发毛躁、打结或褪色后，应该维护还是换新？.docx"
+  },
+  {
+    "id": "wechat-362ec0a6fd",
+    "title": "男士假发需要准备备用吗？长期佩戴前应考虑的5件事",
+    "category": "男士假发",
+    "summary": "备用不是强制购买，而是围绕佩戴频率、维护空档、出差和工作场景建立使用预案。",
+    "tags": [
+      "男士假发",
+      "佩戴"
+    ],
+    "readTime": "10 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:05:10+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-362ec0a6fd/cover.webp",
+    "sourceFile": "男士假发需要准备备用吗？长期佩戴前应考虑的5件事.docx"
+  },
+  {
+    "id": "wechat-1645344480",
+    "title": "男士假发试戴应该看什么？六个真实场景比正面镜子更重要",
+    "category": "男士假发",
+    "summary": "从静止正面到转头、低头、自然光和手机记录，完整观察才能帮助顾客发现真正需要调整的细节。",
+    "tags": [
+      "男士假发",
+      "试戴"
+    ],
+    "readTime": "10 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:23:07+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-1645344480/cover.webp",
+    "sourceFile": "男士假发试戴应该看什么？六个真实场景比正面镜子更重要.docx"
+  },
+  {
+    "id": "wechat-73ee508465",
+    "title": "男士假发交付后，第一次回访应该了解什么？",
+    "category": "男士假发",
+    "summary": "门店完成效果只是起点，独立佩戴、造型、清洁和真实生活体验，才能检验方案是否容易长期执行。",
+    "tags": [
+      "男士假发"
+    ],
+    "readTime": "10 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T13:34:13+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-73ee508465/cover.webp",
+    "sourceFile": "男士假发交付后，第一次回访应该了解什么？.docx"
+  },
+  {
+    "id": "wechat-243921bcff",
+    "title": "夏季佩戴男士假发容易出汗，应该怎样调整护理节奏？",
+    "category": "假发保养",
+    "summary": "稳定、清洁、舒适和产品状态需要共同评估，不能只依赖更强固定。",
+    "tags": [
+      "假发保养",
+      "佩戴",
+      "护理"
+    ],
+    "readTime": "10 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T14:04:50+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-243921bcff/cover.webp",
+    "sourceFile": "夏季佩戴男士假发容易出汗，应该怎样调整护理节奏？.docx"
+  },
+  {
+    "id": "wechat-cbc74669c5",
+    "title": "男士假发的发际线怎样设计才自然？不只是确定一个高度",
+    "category": "发际线",
+    "summary": "位置、轮廓、太阳穴、密度和发丝方向，需要与本人年龄、脸型及原生头发共同判断。",
+    "tags": [
+      "发际线"
+    ],
+    "readTime": "6 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T14:15:34+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-cbc74669c5/cover.webp",
+    "sourceFile": "男士假发的发际线怎样设计才自然？不只是确定一个高度.docx"
+  },
+  {
+    "id": "wechat-1db97da287",
+    "title": "第一次到店咨询男士假发，完整评估应该包含什么？",
+    "category": "男士假发",
+    "summary": "从需求、生活方式和本人条件，到试戴、方案说明与后续安排，完整咨询帮助顾客在决定前了解真实使用要求。",
+    "tags": [
+      "男士假发",
+      "咨询"
+    ],
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T14:30:02+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-1db97da287/cover.webp",
+    "sourceFile": "第一次到店咨询男士假发，完整评估应该包含什么？.docx"
+  },
+  {
+    "id": "wechat-fe4f41f1ad",
+    "title": "男士假发应该选择多少发量？自然密度不是越多越好",
+    "category": "男士发型",
+    "summary": "原生头发、年龄、发型、分区密度与打理习惯，共同决定适合本人的发量。",
+    "tags": [
+      "男士发型",
+      "发量",
+      "密度"
+    ],
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T14:46:20+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-fe4f41f1ad/cover.webp",
+    "sourceFile": "男士假发应该选择多少发量？自然密度不是越多越好.docx"
+  },
+  {
+    "id": "wechat-7399ffd7ff",
+    "title": "男士假发每天摘戴还是连续佩戴？选择前先考虑这6件事",
+    "category": "男士假发",
+    "summary": "佩戴频率、操作习惯、运动出汗、清洁能力和维护距离，共同决定适合本人的管理方式。",
+    "tags": [
+      "男士假发",
+      "佩戴"
+    ],
+    "readTime": "9 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T15:00:53+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-7399ffd7ff/cover.webp",
+    "sourceFile": "男士假发每天摘戴还是连续佩戴？选择前先考虑这6件事.docx"
+  },
+  {
+    "id": "wechat-f82b86a0ee",
+    "title": "第一次佩戴男士假发，怎样让新形象自然进入生活？",
+    "category": "男士假发",
+    "summary": "保留熟悉的分线、长度和身份感，控制发际线与密度变化，并为真实使用和微调预留时间。",
+    "tags": [
+      "男士假发",
+      "佩戴",
+      "形象"
+    ],
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T15:10:32+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-f82b86a0ee/cover.webp",
+    "sourceFile": "第一次佩戴男士假发，怎样让新形象自然进入生活？.docx"
+  },
+  {
+    "id": "wechat-196c27a7ab",
+    "title": "男士假发价格怎样比较？先看报价是否说明这6项",
+    "category": "男士假发",
+    "summary": "产品、修剪、教学、维护、消耗用品和时间安排，共同构成长期使用成本。",
+    "tags": [
+      "男士假发",
+      "价格"
+    ],
+    "readTime": "9 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T15:23:05+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-196c27a7ab/cover.webp",
+    "sourceFile": "男士假发价格怎样比较？先看报价是否说明这6项.docx"
+  },
+  {
+    "id": "wechat-856d7760b9",
+    "title": "产品没有变化，男士假发为什么仍会逐渐不协调？",
+    "category": "男士假发",
+    "summary": "两侧和后区原生头发持续生长，会改变鬓角、耳周、后区层次及整体轮廓。",
+    "tags": [
+      "男士假发"
+    ],
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T15:37:02+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-856d7760b9/cover.webp",
+    "sourceFile": "产品没有变化，男士假发为什么仍会逐渐不协调？.docx"
+  },
+  {
+    "id": "wechat-18098be0eb",
+    "title": "男士假发怎样配色才自然？色号之外，还要检查这6项",
+    "category": "男士发型",
+    "summary": "明暗、冷暖、白发分布、发丝层次和常见光线，共同决定产品与原生头发的颜色关系。",
+    "tags": [
+      "男士发型",
+      "配色"
+    ],
+    "readTime": "9 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T15:50:23+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-18098be0eb/cover.webp",
+    "sourceFile": "男士假发怎样配色才自然？色号之外，还要检查这6项.docx"
+  },
+  {
+    "id": "wechat-121ea8cda1",
+    "title": "男士假发在家怎样恢复发型？完整交付应教会这6件事",
+    "category": "假发保养",
+    "summary": "从日常目标、真实工具和核心发流，到现场独立操作与回访复查，让门店效果能够进入真实生活。",
+    "tags": [
+      "假发保养"
+    ],
+    "readTime": "8 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T16:00:31+08:00",
+    "featured": false,
+    "coverImage": "/blog/wechat-121ea8cda1/cover.webp",
+    "sourceFile": "男士假发在家怎样恢复发型？完整交付应教会这6件事.docx"
+  },
+  {
+    "id": "leshen-business-principles",
+    "title": "LESHEN 乐绅｜我们如何经营业务：关于真实、隐私、专业与长期主义",
+    "category": "品牌理念",
+    "summary": "一家男士假发私人定制品牌，除了把产品做好，还应该怎样经营自己的业务？对 LESHEN 乐绅来说，真正值得长期坚持的并不是一句“客户第一”，而是一套可以被验证的原则：真实介绍产品、保护客户隐私、明确服务边界、不夸大效果、谨慎使用 AI，并在出现问题时先确认事实、再判断责任。本文公开乐绅在经营男士假发私人定制业务时坚持的一些基本原则。",
+    "tags": [
+      "品牌理念"
+    ],
+    "readTime": "11 分钟",
+    "date": "2026-10-04",
+    "modifiedAt": "2026-10-04T18:48:34+08:00",
+    "featured": true,
+    "coverImage": "/blog/leshen-business-principles/cover.webp",
+    "sourceFile": "LESHEN 乐绅 我们如何经营业务.docx"
+  }
 ]

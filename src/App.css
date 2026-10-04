@@ -672,7 +672,7 @@ address span {
 }
 
 .blog-featured-card h3 {
-  margin: 46px 0 0;
+  margin: 28px 0 0;
   color: var(--text-strong);
   font-size: clamp(28px, 2.6vw, 44px);
   font-weight: 600;
@@ -794,6 +794,26 @@ address span {
     border-color 180ms ease,
     transform 180ms ease,
     background 180ms ease;
+}
+
+.blog-card-cover {
+  width: calc(100% + 56px);
+  aspect-ratio: 16 / 10;
+  margin: -28px -28px 24px;
+  border-bottom: 1px solid rgb(219 194 142 / 18%);
+  border-radius: 7px 7px 0 0;
+  background: #050606;
+  object-fit: cover;
+}
+
+.blog-featured-cover {
+  width: 112px;
+  height: 112px;
+  aspect-ratio: 1;
+  margin: 24px 0 0;
+  border: 1px solid rgb(219 194 142 / 22%);
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .blog-card:hover {
@@ -1018,6 +1038,23 @@ address span {
   line-height: 1.85;
 }
 
+.article-cover-image,
+.article-content-image {
+  max-width: 880px;
+  margin: 40px 0 0;
+}
+
+.article-cover-image img,
+.article-content-image img {
+  display: block;
+  width: 100%;
+  max-height: 820px;
+  border: 1px solid rgb(219 194 142 / 18%);
+  border-radius: 8px;
+  background: #050606;
+  object-fit: contain;
+}
+
 .article-page-content {
   display: grid;
   max-width: 880px;
@@ -1030,6 +1067,38 @@ address span {
   color: var(--text-soft);
   font-size: 18px;
   line-height: 1.95;
+  white-space: pre-line;
+}
+
+.article-page-content h2,
+.article-page-content h3 {
+  margin: 24px 0 0;
+  color: var(--text-strong);
+  line-height: 1.3;
+}
+
+.article-page-content h2 {
+  font-family: var(--serif);
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 500;
+}
+
+.article-page-content h3 {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 600;
+}
+
+.article-page-content .article-content-image {
+  margin: 18px 0 10px;
+}
+
+.article-page-content .article-loading,
+.article-page-content .article-load-error {
+  color: var(--text);
+}
+
+.article-page-content .article-load-error {
+  color: #e9b4a7;
 }
 
 .related-articles {
@@ -2287,6 +2356,17 @@ address span {
   .blog-featured-card h3,
   .blog-card h3 {
     font-size: 22px;
+  }
+
+  .blog-card-cover {
+    width: calc(100% + 48px);
+    margin: -24px -24px 22px;
+  }
+
+  .blog-featured-cover {
+    width: 96px;
+    height: 96px;
+    margin: 22px 0 0;
   }
 
   .blog-category-list {
